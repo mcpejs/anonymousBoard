@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+    <title>글쓰기</title>
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <form action="/api/create_comment" class="form-inline justify-content-center" method="post">
+            <div class="form-group">
+                <label for=nickanme>이름</label>
+                <input type="text" class="form-control" name="nickname" placeholder="이름을 입력하세요.">
+            </div>&nbsp;
+            <div class="form-group">
+                <label for="password">비밀번호</label>
+                <input type="text" class="form-control" name="password" placeholder="0-9 4자리 이하 비밀번호를 입력하세요.">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for=content">내용</label>
+                <textarea class="form-control" name="content" rows="3" cols="60"></textarea>
+            </div>
+            <button type="submit" class="btn btn-success btn-block">작성</button>
+        </form><br>
+        </div>
+</body>
