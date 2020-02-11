@@ -1,58 +1,8 @@
 const express=require('express')
-const mysql=require('mysql')
-const app=express()
+const router=express.Router()
+db=require('../db/db')
 
-const db=mysql.createConnection({
-    host     : 'localhost',
-    user     : '유저이름',
-    password : '비번',
-    database : '데이터베이스이름',
-    dateStrings: 'date'
-})
-db.connect()
-
-app.set('view engine','ejs')
-app.use(express.json());
-app.use(express.urlencoded( {extended : true } ));
-
-// 프론트뷰
-app.get('/',function(req,res){
-    var readallquery=`SELECT id,nickname,title,content,wtime FROM posts`
-    db.query(readallquery,function(err,posts,fields){
-        res.render(__dirname+'/views/main',{posts:posts})
-    })
-    
-})
-
-app.get('/create_post',function(req,res){
-    res.sendFile(__dirname+'/views/create.html')
-})
-
-app.get('/view_post/:id',function(req,res){
-    var post;
-    var comemnts;
-    var readsinglequery=`SELECT id,nickname,title,content,wtime FROM posts WHERE id=${req.params.id}`
-    var commentsquery=`SELECT id,nickname,content,wtime FROM comments WHERE postid=${req.params.id}`
-    db.query(readsinglequery,function(err,postdata,fields){
-        post=postdata[0]
-        db.query(commentsquery,function(err,commentsdata,fields){
-            res.render(__dirname+'/views/view',{post:post,comments:commentsdata})
-        })
-        
-    })
-})
-
-app.get('/update_post/:id',function(req,res){
-    res.render(__dirname+'/views/update',{id:req.params.id})
-})
-
-app.get('/delete_post/:id',function(req,res){
-    res.render(__dirname+'/views/delete',{id:req.params.id})
-})
-
-
-// 백엔드 api
-app.post('/api/create_post',function(req,res){
+router.post('/create_post',function(req,res){
     var nickname=req.body.nickname
     var title=req.body.title
     var content=req.body.content
@@ -79,7 +29,7 @@ app.post('/api/create_post',function(req,res){
     })
 })
 
-app.post('/api/update_post',function(req,res){
+router.post('/update_post',function(req,res){
     var id=req.body.id
     var submitpass=req.body.password
 
@@ -118,7 +68,7 @@ app.post('/api/update_post',function(req,res){
     })
 })
 
-app.post('/api/delete_post',function(req,res){
+router.post('/delete_post',function(req,res){
     var id=req.body.id
     var submitpass=req.body.password
 
@@ -140,7 +90,7 @@ app.post('/api/delete_post',function(req,res){
     })
 })
 
-app.post('/api/create_comment',function(req,res){
+router.post('/create_comment',function(req,res){
     var nickname=req.body.nickname
     var content=req.body.content
     var postid=req.body.postid
@@ -177,4 +127,4 @@ app.post('/api/create_comment',function(req,res){
     })
 })
 
-app.listen(3000)
+module.exports=router

@@ -1,0 +1,7 @@
+{
+    "host" : "localhost",
+    "user" : "이름",
+    "password" : "비번",
+    "database" : "보드이름",
+    "dateStrings": "date"
+}
