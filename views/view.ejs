@@ -24,9 +24,12 @@
             var comment=comments[i] %>
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h4 class="panel-title"><%=comment.nickname%>&nbsp;&nbsp;&nbsp;<%=comment.wtime%></h4></div>
+                    <h4 class="panel-title pull-left"><%=comment.nickname%>&nbsp;&nbsp;&nbsp;<%=comment.wtime%></h4>
+                    <button class="btn pull-right" onclick="location.href='/delete_comment/<%=comment.id%>'">삭제</button>
+                    <div class="clearfix"></div>
+                </div>
                 <div class="panel-body">
-                    <div class="content post" style="line-height:30px;">
+                    <div class="content post">
                         <p><%=comment.content%></p>
                     </div>
                 </div>

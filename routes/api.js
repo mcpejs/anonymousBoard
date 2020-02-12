@@ -127,4 +127,24 @@ router.post('/create_comment',function(req,res){
     })
 })
 
+router.post('/delete_comment',function(req,res){
+    var id=req.body.id
+    var submitpass=req.body.password
+
+    var getpassquery=`SELECT postid,password FROM comments WHERE id=${id}`
+    var deletecommentquery=`DELETE FROM comments WHERE id=${id}`
+    db.query(getpassquery,function(err,data,fields){
+        var commentpass=data[0].password
+        var postid=data[0].postid
+        if(commentpass==submitpass){
+            db.query(deletecommentquery,function(err,data,fields){
+                res.status(200)
+                res.send(`<script type="text/javascript">alert("성공적으로 삭제되었습니다.");window.location.href='/view_post/${postid}';</script>`)
+            })
+        } else {
+            res.status(401)
+            res.send(`<script type="text/javascript">alert("틀린 비밀번호입니다.");history.back();</script>`)
+        }
+    })
+})
 module.exports=router
