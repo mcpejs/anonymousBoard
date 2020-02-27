@@ -147,4 +147,11 @@ router.post('/delete_comment',function(req,res){
         }
     })
 })
+
+function ishaveEmpty(array){
+    array.foreach(function(element){
+    if(!element) return True
+    })
+    return False
+}
 module.exports=router
